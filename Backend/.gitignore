@@ -1,0 +1,13 @@
+/vendor
+
+/node_modules
+
+.docker/data/db/*
+!.docker/data/db/.gitkeep
+.docker/data/redis/*
+!.docker/data/redis/.gitkeep
+
+.env
+composer.lock
+
+/public/upload
