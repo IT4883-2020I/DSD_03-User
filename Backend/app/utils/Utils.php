@@ -90,17 +90,25 @@ class Utils
         curl_setopt($channel, CURLOPT_POSTFIELDS, json_encode($params));
         curl_setopt($channel, CURLOPT_URL, $url);
         curl_setopt($channel, CURLOPT_NOSIGNAL, 1);
-        curl_setopt($channel, CURLOPT_TIMEOUT_MS, 200);
+        curl_setopt($channel, CURLOPT_TIMEOUT_MS, 600);
         curl_setopt($channel, CURLOPT_SSL_VERIFYPEER, FALSE);
         curl_setopt($channel, CURLOPT_FOLLOWLOCATION, false);
         curl_exec($channel);
         curl_close($channel);
     }
 
-    public static function getAdminsInfo () {
-        $adminControl = config('acl')['admin_control'];
-        $adminInfo = User::whereIn('role', $adminControl)->get();
-        return $adminInfo;
+    public static function checkPermission($token, $resource) {
+        $result = false;
+        $user = DB::table('users')->where('api_token', $token)->first();
+        $permission = DB::table('permission')->where('resource', $resource)->first();
+        if ($user && $permission) {
+            $role = DB::table('role')->where('code', $user->role)->first();
+            $userPermission = DB::table('role_permission')->where('role_id', $role->id)->where('permission_id', $permission->id)->first();
+            if ($userPermission && $userPermission->access == 'ACTIVE') {
+                $result = true;
+            }
+        }
+        return $result;
     }
 
 }

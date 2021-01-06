@@ -1,4 +1,4 @@
-<?php 
+<?php
 function getImageCdn($url, $width = 0, $height = 0, $fitIn = true, $webp = true) {
     if (!$url) {
         $url = "https://shopbay.vn/images/logo.png";
@@ -15,7 +15,7 @@ function getImageCdn($url, $width = 0, $height = 0, $fitIn = true, $webp = true)
         $url = config('app.domain') . $url;
     }
     if ($webp && isset($_SERVER['HTTP_ACCEPT'])) {
-        if( strpos( $_SERVER['HTTP_ACCEPT'], 'image/webp' ) !== false ) {
+        if (strpos($_SERVER['HTTP_ACCEPT'], 'image/webp') !== false) {
             $webp = true;
         } else {
             $webp = false;
@@ -45,4 +45,23 @@ function getImageCdn($url, $width = 0, $height = 0, $fitIn = true, $webp = true)
     }
     $baseCdnUrl .= $url;
     return $baseCdnUrl;
+}
+
+function get_client_ip() {
+    $ipaddress = '';
+    if (isset($_SERVER['HTTP_CLIENT_IP']))
+        $ipaddress = $_SERVER['HTTP_CLIENT_IP'];
+    else if (isset($_SERVER['HTTP_X_FORWARDED_FOR']))
+        $ipaddress = $_SERVER['HTTP_X_FORWARDED_FOR'];
+    else if (isset($_SERVER['HTTP_X_FORWARDED']))
+        $ipaddress = $_SERVER['HTTP_X_FORWARDED'];
+    else if (isset($_SERVER['HTTP_FORWARDED_FOR']))
+        $ipaddress = $_SERVER['HTTP_FORWARDED_FOR'];
+    else if (isset($_SERVER['HTTP_FORWARDED']))
+        $ipaddress = $_SERVER['HTTP_FORWARDED'];
+    else if (isset($_SERVER['REMOTE_ADDR']))
+        $ipaddress = $_SERVER['REMOTE_ADDR'];
+    else
+        $ipaddress = 'UNKNOWN';
+    return $ipaddress;
 }

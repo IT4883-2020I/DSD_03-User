@@ -16,12 +16,12 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected $namespace = 'App\Http\Controllers';
 
+    public const HOME = '/streaming';
     /**
      * The path to the "home" route for your application.
      *
      * @var string
      */
-    public const HOME = '/streaming';
 
     /**
      * Define your route model bindings, pattern filters, etc.

@@ -23,4 +23,13 @@ Route::post('/register', ['uses' => 'Service\UserService@register']);
 Route::post('/change-password', ['uses' => 'Service\UserService@changePassword']);
 Route::post('/forgot-password', ['uses' => 'Service\UserService@forgotPassword']);
 Route::get('/verify-token', ['uses' => 'Service\UserService@verifyToken']);
-Route::get('/send-email-forgot-password', ['uses' => 'Service\UserService@sendEmailForgotPassword']);
+Route::post('/send-email-forgot-password', ['uses' => 'Service\UserService@sendEmailForgotPassword']);
+Route::patch("/user/update-status", ['uses' => 'Service\UserService@updateStatusActivation']);
+
+Route::get('/generate-department', ['uses' => 'Service\UserService@generateDepartment']);
+
+Route::get('/generate-permission', ['uses' => 'Service\UserService@generatePermission']);
+
+Route::get('/get-permission', ['uses' => 'Service\UserService@getPermission']);
+
+Route::post('/get-user-name', ['uses' => 'Service\UserService@getUsersName']);
